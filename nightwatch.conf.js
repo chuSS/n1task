@@ -9,7 +9,12 @@ module.exports = {
     selenium: {
         start_process: false
     },
-    test_workers: false,
+    live_output : true,
+    // test_workers: false,
+    test_workers: {
+        "enabled": true,
+        "workers": "auto" // CPUs || {number}
+    },
     test_settings: {
         default: {
             selenium_port: 9515,

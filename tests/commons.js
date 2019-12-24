@@ -4,11 +4,15 @@ const path = require('path')
 const config = require(path.resolve(__dirname, '../config'))
 
 module.exports = {
+    // '@disabled': false,
     openSite: function (browser) {
         browser
-            .resizeWindow(1280, 1024)
+            // .resizeWindow(1280, 1024)
             .url(config.baseUrl)
             .waitForElementVisible('body', 1000)
+    // },
+    // getInput: function (browser) {
+        browser
             .waitForElementVisible(config.sInput, 1000, function () {
                 // browser.moveToElement(config.sInput, 10, 10, function() {
                     browser.pause(500).click(config.sInput)
@@ -18,6 +22,8 @@ module.exports = {
                     browser.pause(500).click(config.sButton);
                 // })
             }, 'Click Search')
+    // },
+    // getResult: function (browser) {
         browser
             .waitForElementVisible('body', 2000)
             .waitForElementVisible('#resultStats')
@@ -30,8 +36,8 @@ module.exports = {
             .getText('css selector', '#resultStats', function(result) {
                 console.log('Знайшли: ', result.value)
             })
-    },
-    endTest: function(browser) {
+    // },
+    // endTest: function(browser) {
         browser.end()
     }
 }

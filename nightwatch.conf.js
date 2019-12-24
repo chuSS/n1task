@@ -12,8 +12,8 @@ module.exports = {
     live_output : true, // unbuffered out
     // test_workers: false,
     test_workers: {
-        "enabled": true,
-        "workers": "auto" // CPUs || {number}
+        enabled: true,
+        workers: 'auto' // CPUs 'auto' || {number}
     },
     test_settings: {
         default: {

@@ -1,0 +1,55 @@
+// you can write your command.var util = require('util');
+//
+// .waitForClick('selector',3000,cb)
+//
+var events = require('events');
+
+function WaitForClick () {
+  events.EventEmitter.call(this);
+}
+
+util.inherits(WaitForClick, events.EventEmitter);
+
+WaitForClick.prototype.command = function commandFn (selector, ms, cb = function () {
+}, abortOnFailure) {
+  this._stackTrace = commandFn.stackTrace;
+  this.selector = selector
+  this.abortOnFailure = abortOnFailure
+  if (!ms) {
+    return this;
+  }
+  let self = this;
+  let stime = Date.now()
+
+  function click () {
+    this.client.api.click(this.selector, (result) => {
+      console.log('poll 500 for clickable')
+      console.log('-------------->')
+      console.log(result)
+
+      if (result.status === 0) {
+        if (typeof  cb === 'function') {
+          self.client.assertion(true, 'clickable', 'clickable', this.selector + 'clickable', this.abortOnFailure, this._stackTrace);
+          cb.call(self, result)
+          self.emit('complete');
+          return self
+        }
+      } else {
+        let now = Date.now()
+        if (now - stime > ms) {
+          cb.call(self, result)
+          self.client.assertion(false, 'unClickable', 'clickable', this.selector + 'element not clickable', this.abortOnFailure, this._stackTrace);
+          self.emit('complete');
+          return self
+        }
+
+        setTimeout(click.bind(self), 500)
+      }
+    })
+  }
+
+  click.call(this)
+  return this;
+};
+
+module.exports = WaitForClick;

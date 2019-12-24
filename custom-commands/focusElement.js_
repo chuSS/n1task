@@ -1,0 +1,21 @@
+// browser.focusElement('css', '.price');
+// browser.click('.price');
+// ...
+// if your dealing with xpath it would looks something like this
+// browser.focusElement('xpath', '//*[@Class="price"]');
+// 
+
+function focusElement(type, selector) {
+  return this.execute(function click(selType, sel) {
+    let ele;
+    if (selType=== 'css') { 
+      ele = document.querySelector(sel);
+    else {
+      ele = document.evaluate(sel, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+    }
+    return ele['focus']();
+  }, [type, selector], (result) =>{ console.log(result);}
+  });
+}
+
+exports.command = focusElement;

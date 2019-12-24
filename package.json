@@ -1,0 +1,15 @@
+{
+    "name": "n1task",
+    "version": "0.0.1",
+    "description": "end-to-end n1",
+    "main": "index.js",
+    "devDependencies": {
+        "chromedriver": "^79.0.0",
+        "nightwatch": "^1.3.2"
+    },
+    "scripts": {
+        "test": "./node_modules/.bin/nightwatch"
+    },
+    "author": "chuss",
+    "dependencies": {}
+}

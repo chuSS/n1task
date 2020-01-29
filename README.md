@@ -1,6 +1,7 @@
 # n1task
 
 npm i
+
 npm run test
 
 adjust the number of threads by the number of scripts in /tests and the "workers" parameter in nightwatch.conf.js

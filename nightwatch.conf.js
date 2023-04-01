@@ -13,7 +13,7 @@ module.exports = {
     // test_workers: false,
     test_workers: {
         enabled: true,
-        workers: '6' // CPUs 'auto' || {number}
+        workers: 'auto' // CPUs 'auto' || {number}
     },
     test_settings: {
         default: {
